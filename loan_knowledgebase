@@ -1,0 +1,40 @@
+:- use_module(library(lists)).
+
+card(credit).
+card(debit).
+loan(mortgage).
+loan(student).
+loan(car).
+
+takeout_loan(jon, loan(mortgage)).
+takeout_loan(jon, loan(student)).
+takeout_loan(mary, loan(car)).
+takeout_card(mary, card(credit)).
+takeout_card(mary, card(debit)).
+takeout_loan(henry, loan(mortgage)).
+takeout_loan(henry, loan(student)).
+takeout_loan(henry, loan(car)).
+takeout_card(henry, card(debit)).
+takeout_card(henry, card(credit)).
+
+
+has_loan(X):-takeout_loan(X, loan(mortgage));
+	takeout_loan(X, loan(student));
+    takeout_loan(X, loan(car)).
+
+is_a_gold_customer(X):-takeout_loan(X, loan(mortgage)),
+	takeout_loan(X, loan(student)),
+    takeout_loan(X, loan(car)),
+    takeout_card(X, card(credit)),
+    takeout_card(X, card(debit)). 
+
+is_a_silver_customer(X):-(takeout_loan(X, loan(mortgage)),
+	takeout_loan(X, loan(student)),
+    takeout_loan(X, loan(car)));
+    (takeout_card(X, card(credit)),
+    takeout_card(X, card(debit))).
+    
+# Queries can be carried out, such as: 
+# is_a_silver_customer(mary).
+# is_a_gold_customer(mary).
+# is_a_gold_customer(henry).
