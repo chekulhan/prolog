@@ -1,0 +1,2 @@
+# prolog
+Example prolog repository
